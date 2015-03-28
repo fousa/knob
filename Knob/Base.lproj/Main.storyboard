@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14D98g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7512"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,22 +18,34 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjB-W1-sg7" customClass="FOKnobView" customModule="Knob" customModuleProvider="target">
-                                <rect key="frame" x="30" y="30" width="150" height="150"/>
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="5Nn-75-SG9"/>
-                                    <constraint firstAttribute="height" constant="150" id="Bgi-CL-G6F"/>
+                                    <constraint firstAttribute="width" secondItem="bjB-W1-sg7" secondAttribute="height" multiplier="1:1" id="86E-tp-tCC"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="dTk-Ec-0UZ" appends="YES" id="LUS-wg-9LK"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bjB-W1-sg7" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="30" id="5Mr-co-1FV"/>
-                            <constraint firstItem="bjB-W1-sg7" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="30" id="Ucx-Ki-EUn"/>
+                            <constraint firstAttribute="centerY" secondItem="bjB-W1-sg7" secondAttribute="centerY" id="V9c-bf-O2B"/>
+                            <constraint firstAttribute="centerX" secondItem="bjB-W1-sg7" secondAttribute="centerX" id="moE-XB-YAO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="knobHeightConstraint" destination="5Nn-75-SG9" id="yxd-gd-4Xz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="dTk-Ec-0UZ">
+                    <connections>
+                        <action selector="tappedKnob:" destination="vXZ-lx-hvc" id="780-ZQ-ciS"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
     </scenes>

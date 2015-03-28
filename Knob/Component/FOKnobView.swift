@@ -14,6 +14,7 @@ class FOKnobView: UIView {
     
     private var pathLayer: CAShapeLayer!
     private var handleLayer: CAShapeLayer!
+    private var path: UIBezierPath!
     
     private var handleView: UIView!
     private var handleGesture: UIGestureRecognizer!
@@ -33,10 +34,6 @@ class FOKnobView: UIView {
         addPathLayer()
         addHandleLayer()
         addHandleGesture()
-        
-        createPathPoints()
-        
-        layoutHandleView()
     }
     
     // MARK: - Path
@@ -61,7 +58,7 @@ class FOKnobView: UIView {
     
     private func createPathPoints() {
         let pattern: [CGFloat] = [1.0, 1.0]
-        let dashedPath = CGPathCreateCopyByDashingPath(pathLayer.path, nil, 0.0, pattern, 2)
+        let dashedPath = CGPathCreateCopyByDashingPath(path.CGPath, nil, 0.0, pattern, 2)
         let dashedBezierPath = UIBezierPath(CGPath: dashedPath)
         
         var minimumDistance: CGFloat = 0.1
@@ -95,19 +92,18 @@ class FOKnobView: UIView {
         pathLayer.strokeColor = UIColor.redColor().CGColor
         pathLayer.lineCap = kCALineCapButt
         pathLayer.lineJoin = kCALineJoinRound
-        
-        let path = UIBezierPath()
-        
+        layer.addSublayer(pathLayer)
+    }
+    
+    private func createPath() {
         let center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
         let padding = CGFloat(10.0)
         let radius = CGRectGetHeight(bounds) / 2.0 - padding
         let startAngle = CGFloat(-M_PI / 1.5)
         let endAngle = CGFloat(-M_PI / 3.0)
         
+        path = UIBezierPath()
         path.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
-        pathLayer.path = path.CGPath
-        
-        layer.addSublayer(pathLayer)
     }
     
     private func addHandleLayer() {
@@ -126,7 +122,22 @@ class FOKnobView: UIView {
     // MARK: - Layout
     
     private func layoutHandleView() {
+        handlePathIndex = handlePathPointIndex(offset: 0)
         handleView.center = pathLayer.convertPoint(pointsData[handlePathIndex], toLayer: layer)
+    }
+    
+    private func layoutPathLayer() {
+        pathLayer.path = path.CGPath
+        pathLayer.frame = self.bounds
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        createPath()
+        createPathPoints()
+        
+        layoutPathLayer()
+        layoutHandleView()
     }
     
     // MARK: - Gestures

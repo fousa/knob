@@ -9,17 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    @IBOutlet var knobHeightConstraint: NSLayoutConstraint!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    // MARK: - Actions
+
+    @IBAction func tappedKnob(sender: AnyObject) {
+        if knobHeightConstraint.constant == 150.0 {
+           knobHeightConstraint.constant = 200.0
+        } else {
+           knobHeightConstraint.constant = 150.0
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
 
