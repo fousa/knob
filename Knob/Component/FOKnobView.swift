@@ -21,6 +21,7 @@ class FOKnobView: UIView {
     private var handlePathIndex = 0
     private var pointsCount = 0
     private var pointsData: [CGPoint]!
+    private var desiredHandleCenter: CGPoint!
     
     // MARK: - Init
     
@@ -136,6 +137,68 @@ class FOKnobView: UIView {
     }
     
     func handleDidPan(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .Began:
+            desiredHandleCenter = handleView.center
+        case .Changed, .Ended, .Cancelled:
+            let translation = gesture.translationInView(self)
+            desiredHandleCenter.x += translation.x
+            desiredHandleCenter.y += translation.y
+            moveHandle(point: desiredHandleCenter)
+        default: break
+        }
+        gesture.setTranslation(CGPointZero, inView: self)
+    }
+    
+    // MARK: - Move
+
+    private func moveHandle(#point: CGPoint) {
+        let earlierDistance = distanceTo(point: point, handleMovesByOffset: -1)
+        let currentDistance = distanceTo(point: point, handleMovesByOffset: 0)
+        let laterDistance = distanceTo(point: point, handleMovesByOffset: 1)
+        if currentDistance <= earlierDistance && currentDistance <= laterDistance {
+            return
+        }
+        
+        var direction: Int
+        var distance: CGFloat
+        if earlierDistance < laterDistance {
+            direction = -1
+            distance = earlierDistance
+        } else {
+            direction = 1
+            distance = laterDistance
+        }
+        
+        var offset = direction
+        while true {
+            let nextOffset = offset + direction
+            let nextDistance = distanceTo(point: point, handleMovesByOffset: nextOffset)
+            if nextDistance >= distance {
+                break
+            }
+            distance = nextDistance
+            offset = nextOffset
+        }
+        handlePathIndex += offset
+        layoutHandleView()
+    }
+    
+    private func distanceTo(#point: CGPoint, handleMovesByOffset offset: Int) -> CGFloat {
+        let index = handlePathPointIndex(offset: offset)
+        let proposedHandlePoint = pointsData[index]
+        return CGFloat(hypotf(Float(point.x - proposedHandlePoint.x), Float(point.y - proposedHandlePoint.y)))
+    }
+    
+    private func handlePathPointIndex(#offset: Int) -> Int {
+        var index = handlePathIndex + offset
+        while index < 0 {
+            index += pointsCount
+        }
+        while index >= pointsCount {
+            index -= pointsCount
+        }
+        return index
     }
     
 }
