@@ -12,6 +12,7 @@
 		C5FB37441AC72AF60077BF16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FB37421AC72AF60077BF16 /* Main.storyboard */; };
 		C5FB37461AC72AF60077BF16 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5FB37451AC72AF60077BF16 /* Images.xcassets */; };
 		C5FB37491AC72AF60077BF16 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5FB37471AC72AF60077BF16 /* LaunchScreen.xib */; };
+		C5FB37601AC72B590077BF16 /* FOKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FB375F1AC72B590077BF16 /* FOKnobView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		C5FB37481AC72AF60077BF16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C5FB37531AC72AF60077BF16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5FB37541AC72AF60077BF16 /* KnobTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobTests.swift; sourceTree = "<group>"; };
+		C5FB375F1AC72B590077BF16 /* FOKnobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FOKnobView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				C5FB373E1AC72AF60077BF16 /* AppDelegate.swift */,
 				C5FB37401AC72AF60077BF16 /* ViewController.swift */,
+				C5FB375E1AC72B4A0077BF16 /* Component */,
 				C5FB37421AC72AF60077BF16 /* Main.storyboard */,
 				C5FB37451AC72AF60077BF16 /* Images.xcassets */,
 				C5FB37471AC72AF60077BF16 /* LaunchScreen.xib */,
@@ -90,6 +93,14 @@
 				C5FB37531AC72AF60077BF16 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C5FB375E1AC72B4A0077BF16 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				C5FB375F1AC72B590077BF16 /* FOKnobView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +175,7 @@
 			files = (
 				C5FB37411AC72AF60077BF16 /* ViewController.swift in Sources */,
 				C5FB373F1AC72AF60077BF16 /* AppDelegate.swift in Sources */,
+				C5FB37601AC72B590077BF16 /* FOKnobView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
