@@ -46,22 +46,15 @@ class KnobView: UIView {
     
     // MARK: - Path
     
-    private func lastPointOfPathElement(element: (UnsafePointer<CGPathElement>)) -> CGPoint? {
-        var index: Int?
-        let element = element.memory
+    private func createPath() {
+        let center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
+        let padding = CGFloat(10.0)
+        let radius = CGRectGetHeight(bounds) / 2.0 - padding
+        let startAngle = CGFloat(-M_PI / 1.5)
+        let endAngle = CGFloat(-M_PI / 3.0)
         
-        switch element.type.value {
-        case kCGPathElementMoveToPoint.value: index = 0
-        case kCGPathElementAddCurveToPoint.value: index = 2
-        case kCGPathElementAddLineToPoint.value: index = 0
-        case kCGPathElementAddQuadCurveToPoint.value: index = 1
-        default: break
-        }
-
-        if let index = index {
-            return element.points[index]
-        }
-        return nil
+        path = UIBezierPath()
+        path.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
     }
     
     private func createPathPoints() {
@@ -91,6 +84,24 @@ class KnobView: UIView {
         }
     }
     
+    private func lastPointOfPathElement(element: (UnsafePointer<CGPathElement>)) -> CGPoint? {
+        var index: Int?
+        let element = element.memory
+        
+        switch element.type.value {
+        case kCGPathElementMoveToPoint.value: index = 0
+        case kCGPathElementAddCurveToPoint.value: index = 2
+        case kCGPathElementAddLineToPoint.value: index = 0
+        case kCGPathElementAddQuadCurveToPoint.value: index = 1
+        default: break
+        }
+        
+        if let index = index {
+            return element.points[index]
+        }
+        return nil
+    }
+    
     // MARK: - Layers
     
     private func addPathLayer() {
@@ -101,17 +112,6 @@ class KnobView: UIView {
         pathLayer.lineCap = kCALineCapButt
         pathLayer.lineJoin = kCALineJoinRound
         layer.addSublayer(pathLayer)
-    }
-    
-    private func createPath() {
-        let center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
-        let padding = CGFloat(10.0)
-        let radius = CGRectGetHeight(bounds) / 2.0 - padding
-        let startAngle = CGFloat(-M_PI / 1.5)
-        let endAngle = CGFloat(-M_PI / 3.0)
-        
-        path = UIBezierPath()
-        path.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
     }
     
     private func addHandleLayer() {
@@ -136,7 +136,7 @@ class KnobView: UIView {
     
     private func layoutPathLayer() {
         pathLayer.path = path.CGPath
-        pathLayer.frame = self.bounds
+        pathLayer.frame = bounds
     }
     
     override func layoutSubviews() {
@@ -169,7 +169,7 @@ class KnobView: UIView {
         gesture.setTranslation(CGPointZero, inView: self)
     }
     
-    // MARK: - Move
+    // MARK: - Movement
 
     private func moveHandle(#point: CGPoint) {
         let earlierDistance = distanceTo(point: point, handleMovesByOffset: -1)
