@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol FOKnobViewDelegate {
-    func knobView(view: FOKnobView, didChangeValue value: CGFloat)
+protocol KnobViewDelegate {
+    func knobView(view: KnobView, didChangeValue value: CGFloat)
 }
 
-class FOKnobView: UIView {
+class KnobView: UIView {
     
     // MARK: - Privates
     
@@ -30,7 +30,7 @@ class FOKnobView: UIView {
     
     // MARK: - Public
     
-    var delegate: FOKnobViewDelegate?
+    var delegate: KnobViewDelegate?
     
     // MARK: - Init
     

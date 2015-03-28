@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, FOKnobViewDelegate {
+class ViewController: UIViewController, KnobViewDelegate {
     
     // MARK: - Properties
     
     @IBOutlet var label: UILabel!
-    @IBOutlet var knobView: FOKnobView!
+    @IBOutlet var knobView: KnobView!
     @IBOutlet var knobHeightConstraint: NSLayoutConstraint!
     
     // MARK: - View flow
@@ -36,9 +36,9 @@ class ViewController: UIViewController, FOKnobViewDelegate {
 
 }
 
-extension ViewController: FOKnobViewDelegate {
+extension ViewController: KnobViewDelegate {
     
-    func knobView(view: FOKnobView, didChangeValue value: CGFloat) {
+    func knobView(view: KnobView, didChangeValue value: CGFloat) {
         label.text = "\(Int(value * 10))"
     }
     
