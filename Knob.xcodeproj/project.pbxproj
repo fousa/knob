@@ -13,7 +13,7 @@
 		C5FB37461AC72AF60077BF16 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5FB37451AC72AF60077BF16 /* Images.xcassets */; };
 		C5FB37491AC72AF60077BF16 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5FB37471AC72AF60077BF16 /* LaunchScreen.xib */; };
 		C5FB37601AC72B590077BF16 /* FOKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FB375F1AC72B590077BF16 /* FOKnobView.swift */; };
-		C5FB37621AC72C780077BF16 /* UIBezierPath+Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FB37611AC72C780077BF16 /* UIBezierPath+Element.swift */; };
+		C5FB37661AC733440077BF16 /* UIBezierPath+ForEachElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FB37651AC733440077BF16 /* UIBezierPath+ForEachElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,9 @@
 		C5FB37531AC72AF60077BF16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5FB37541AC72AF60077BF16 /* KnobTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobTests.swift; sourceTree = "<group>"; };
 		C5FB375F1AC72B590077BF16 /* FOKnobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FOKnobView.swift; sourceTree = "<group>"; };
-		C5FB37611AC72C780077BF16 /* UIBezierPath+Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Element.swift"; sourceTree = "<group>"; };
+		C5FB37631AC733440077BF16 /* Knob-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Knob-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5FB37641AC733440077BF16 /* UIBezierPath+ForEachElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+ForEachElement.h"; sourceTree = "<group>"; };
+		C5FB37651AC733440077BF16 /* UIBezierPath+ForEachElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+ForEachElement.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				C5FB375F1AC72B590077BF16 /* FOKnobView.swift */,
-				C5FB37611AC72C780077BF16 /* UIBezierPath+Element.swift */,
+				C5FB37641AC733440077BF16 /* UIBezierPath+ForEachElement.h */,
+				C5FB37651AC733440077BF16 /* UIBezierPath+ForEachElement.m */,
+				C5FB37631AC733440077BF16 /* Knob-Bridging-Header.h */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -177,8 +181,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5FB37411AC72AF60077BF16 /* ViewController.swift in Sources */,
+				C5FB37661AC733440077BF16 /* UIBezierPath+ForEachElement.m in Sources */,
 				C5FB373F1AC72AF60077BF16 /* AppDelegate.swift in Sources */,
-				C5FB37621AC72C780077BF16 /* UIBezierPath+Element.swift in Sources */,
 				C5FB37601AC72B590077BF16 /* FOKnobView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,9 +292,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Knob/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Knob/Component/Knob-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -298,9 +305,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Knob/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Knob/Component/Knob-Bridging-Header.h";
 			};
 			name = Release;
 		};

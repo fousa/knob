@@ -19,6 +19,8 @@ class FOKnobView: UIView {
     private var handleGesture: UIGestureRecognizer!
     
     private var handlePathIndex = 0
+    private var pointsCount = 0
+    private var pointsData: [CGPoint]!
     
     // MARK: - Init
     
@@ -30,6 +32,57 @@ class FOKnobView: UIView {
         addPathLayer()
         addHandleLayer()
         addHandleGesture()
+        
+        createPathPoints()
+        
+        layoutHandleView()
+    }
+    
+    // MARK: - Path
+    
+    private func lastPointOfPathElement(element: (UnsafePointer<CGPathElement>)) -> CGPoint? {
+        var index: Int?
+        let element = element.memory
+        
+        switch element.type.value {
+        case kCGPathElementMoveToPoint.value: index = 0
+        case kCGPathElementAddCurveToPoint.value: index = 2
+        case kCGPathElementAddLineToPoint.value: index = 0
+        case kCGPathElementAddQuadCurveToPoint.value: index = 1
+        default: break
+        }
+
+        if let index = index {
+            return element.points[index]
+        }
+        return nil
+    }
+    
+    private func createPathPoints() {
+        let pattern: [CGFloat] = [1.0, 1.0]
+        let dashedPath = CGPathCreateCopyByDashingPath(pathLayer.path, nil, 0.0, pattern, 2)
+        let dashedBezierPath = UIBezierPath(CGPath: dashedPath)
+        
+        var minimumDistance: CGFloat = 0.1
+        var priorPoint = CGPointMake(CGFloat(HUGE), CGFloat(HUGE))
+        
+        pointsData = [CGPoint]()
+        dashedBezierPath.forEachElement { (element) -> Void in
+            if let point = self.lastPointOfPathElement(element) {
+                let value = CGFloat(hypotf(Float(point.x - priorPoint.x), Float(point.y - priorPoint.y)))
+                if value < minimumDistance {
+                    return
+                }
+                self.pointsData.append(point)
+            } else {
+                return
+            }
+        }
+        
+        pointsCount = pointsData.count
+        if (pointsData.count > 1 && hypotf(Float(pointsData[0].x) - Float(priorPoint.x), Float(pointsData[0].y) - Float(priorPoint.y)) < Float(minimumDistance)) {
+            pointsCount -= 1;
+        }
     }
     
     // MARK: - Layers
@@ -69,6 +122,12 @@ class FOKnobView: UIView {
         addSubview(handleView)
     }
     
+    // MARK: - Layout
+    
+    private func layoutHandleView() {
+        handleView.center = pathLayer.convertPoint(pointsData[handlePathIndex], toLayer: layer)
+    }
+    
     // MARK: - Gestures
     
     private func addHandleGesture() {
@@ -77,7 +136,6 @@ class FOKnobView: UIView {
     }
     
     func handleDidPan(gesture: UIPanGestureRecognizer) {
-        
     }
     
 }
