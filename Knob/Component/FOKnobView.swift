@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FOKnobViewDelegate {
+    func knobView(view: FOKnobView, didChangeValue value: CGFloat)
+}
+
 class FOKnobView: UIView {
     
     // MARK: - Privates
@@ -23,6 +27,10 @@ class FOKnobView: UIView {
     private var pointsCount = 0
     private var pointsData: [CGPoint]!
     private var desiredHandleCenter: CGPoint!
+    
+    // MARK: - Public
+    
+    var delegate: FOKnobViewDelegate?
     
     // MARK: - Init
     
@@ -192,6 +200,9 @@ class FOKnobView: UIView {
             offset = nextOffset
         }
         handlePathIndex += offset
+        
+        let value = CGFloat(handlePathIndex) / CGFloat(pointsCount)
+        delegate?.knobView(self, didChangeValue: value)
         layoutHandleView()
     }
     
