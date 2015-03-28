@@ -9,7 +9,7 @@
 import UIKit
 
 protocol KnobViewDelegate {
-    func knobView(view: KnobView, didChangeValue value: CGFloat)
+    func knobView(view: KnobView, didChangeValue value: Int)
 }
 
 class KnobView: UIView {
@@ -31,6 +31,8 @@ class KnobView: UIView {
     // MARK: - Public
     
     var delegate: KnobViewDelegate?
+    var minimumValue: Int = 0
+    var maximumValue: Int = 10
     
     // MARK: - Init
     
@@ -79,9 +81,6 @@ class KnobView: UIView {
         }
         
         pointsCount = pointsData.count
-        if (pointsData.count > 1 && hypotf(Float(pointsData[0].x) - Float(priorPoint.x), Float(pointsData[0].y) - Float(priorPoint.y)) < Float(minimumDistance)) {
-            pointsCount -= 1;
-        }
     }
     
     private func lastPointOfPathElement(element: (UnsafePointer<CGPathElement>)) -> CGPoint? {
@@ -141,6 +140,7 @@ class KnobView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         createPath()
         createPathPoints()
         
@@ -167,6 +167,15 @@ class KnobView: UIView {
         default: break
         }
         gesture.setTranslation(CGPointZero, inView: self)
+    }
+    
+    // MARK: - Value
+    
+    private func calculateValue() -> Int {
+        let value = CGFloat(handlePathIndex) / CGFloat(pointsCount)
+        let difference = CGFloat(maximumValue - minimumValue)
+        let ratio = difference / CGFloat(100.0)
+        return Int(ceil(value * ratio * CGFloat(100.0) + CGFloat(minimumValue)))
     }
     
     // MARK: - Movement
@@ -200,9 +209,8 @@ class KnobView: UIView {
             offset = nextOffset
         }
         handlePathIndex += offset
-        
-        let value = CGFloat(handlePathIndex) / CGFloat(pointsCount)
-        delegate?.knobView(self, didChangeValue: value)
+
+        delegate?.knobView(self, didChangeValue: calculateValue())
         layoutHandleView()
     }
     

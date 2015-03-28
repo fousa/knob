@@ -22,6 +22,9 @@ class ViewController: UIViewController, KnobViewDelegate {
         super.viewDidLoad()
         
         knobView.delegate = self
+        
+        knobView.minimumValue = 10
+        knobView.maximumValue = 90
     }
 
     // MARK: - Actions
@@ -32,14 +35,15 @@ class ViewController: UIViewController, KnobViewDelegate {
         } else {
            knobHeightConstraint.constant = 150.0
         }
+        knobView.setNeedsLayout()
     }
 
 }
 
 extension ViewController: KnobViewDelegate {
     
-    func knobView(view: KnobView, didChangeValue value: CGFloat) {
-        label.text = "\(Int(value * 10))"
+    func knobView(view: KnobView, didChangeValue value: Int) {
+        label.text = "\(value)"
     }
     
 }
