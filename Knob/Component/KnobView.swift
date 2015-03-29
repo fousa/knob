@@ -183,43 +183,47 @@ class KnobView: UIView {
     // MARK: - Movement
 
     private func moveHandle(#point: CGPoint) {
-        let earlierDistance = distanceTo(point: point, handleMovesByOffset: -1)
-        let currentDistance = distanceTo(point: point, handleMovesByOffset: 0)
-        let laterDistance = distanceTo(point: point, handleMovesByOffset: 1)
+        let (earlierIndex, earlierDistance) = distanceTo(point: point, handleMovesByOffset: -1)
+        let (currentIndex, currentDistance) = distanceTo(point: point, handleMovesByOffset: 0)
+        let (laterIndex, laterDistance) = distanceTo(point: point, handleMovesByOffset: 1)
         if currentDistance <= earlierDistance && currentDistance <= laterDistance {
             return
         }
         
+        var index: Int
         var direction: Int
         var distance: CGFloat
         if earlierDistance < laterDistance {
+            index = earlierIndex
             direction = -1
             distance = earlierDistance
         } else {
             direction = 1
             distance = laterDistance
+            index = laterIndex
         }
         
         var offset = direction
         while true {
             let nextOffset = offset + direction
-            let nextDistance = distanceTo(point: point, handleMovesByOffset: nextOffset)
+            let (nextIndex, nextDistance) = distanceTo(point: point, handleMovesByOffset: nextOffset)
             if nextDistance >= distance {
                 break
             }
             distance = nextDistance
+            index = nextIndex
             offset = nextOffset
         }
-        handlePathIndex += offset
+        handlePathIndex = index
 
         delegate?.knobView(self, didChangeValue: calculateValue())
         layoutHandleView()
     }
     
-    private func distanceTo(#point: CGPoint, handleMovesByOffset offset: Int) -> CGFloat {
+    private func distanceTo(#point: CGPoint, handleMovesByOffset offset: Int) -> (Int, CGFloat) {
         let index = handlePathPointIndex(offset: offset)
         let proposedHandlePoint = pointsData[index]
-        return CGFloat(hypotf(Float(point.x - proposedHandlePoint.x), Float(point.y - proposedHandlePoint.y)))
+        return (index, CGFloat(hypotf(Float(point.x - proposedHandlePoint.x), Float(point.y - proposedHandlePoint.y))))
     }
     
     private func handlePathPointIndex(#offset: Int) -> Int {
