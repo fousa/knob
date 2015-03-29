@@ -23,8 +23,8 @@ class ViewController: UIViewController, KnobViewDelegate {
         
         knobView.delegate = self
         
-        knobView.minimumValue = 10
-        knobView.maximumValue = 90
+        knobView.minimumValue = 0
+        knobView.maximumValue = 10
     }
 
     // MARK: - Actions
