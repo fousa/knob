@@ -21,7 +21,10 @@ class ViewController: UIViewController, KnobViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(red:0.05, green:0.4, blue:0.6, alpha:1)
+        
         knobView.delegate = self
+        knobView.layer.cornerRadius = 20.0
         
         knobView.minimumValue = 0
         knobView.maximumValue = 10
@@ -36,6 +39,12 @@ class ViewController: UIViewController, KnobViewDelegate {
            knobHeightConstraint.constant = 150.0
         }
         knobView.setNeedsLayout()
+    }
+    
+    // MARK: - Status bar
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 
 }

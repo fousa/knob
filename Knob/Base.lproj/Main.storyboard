@@ -18,11 +18,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjB-W1-sg7" customClass="KnobView" customModule="Knob" customModuleProvider="target">
-                                <rect key="frame" x="225" y="225" width="150" height="150"/>
+                                <rect key="frame" x="200" y="200" width="200" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seO-Sw-0BU">
-                                        <rect key="frame" x="70" y="63" width="11" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <rect key="frame" x="89" y="76" width="23" height="48"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -30,7 +30,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="5Nn-75-SG9"/>
+                                    <constraint firstAttribute="width" constant="200" id="5Nn-75-SG9"/>
                                     <constraint firstAttribute="width" secondItem="bjB-W1-sg7" secondAttribute="height" multiplier="1:1" id="86E-tp-tCC"/>
                                     <constraint firstAttribute="centerY" secondItem="seO-Sw-0BU" secondAttribute="centerY" id="8v5-bp-HIQ"/>
                                     <constraint firstAttribute="centerX" secondItem="seO-Sw-0BU" secondAttribute="centerX" id="IGj-c2-PDL"/>

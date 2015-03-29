@@ -23,7 +23,7 @@ class KnobView: UIView {
     // MARK: - Properties
     
     // The padding from the side.
-    private var padding = CGFloat(10.0)
+    private var padding = CGFloat(20.0)
     
     // The end andle of the pathLayer. Take into account that the
     // drawing will occur counter clock wise.
@@ -68,7 +68,7 @@ class KnobView: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        backgroundColor = UIColor.blueColor()
+        backgroundColor = UIColor(red:0.29, green:0.76, blue:0.92, alpha:1)
         
         addPathLayer()
         addHandleLayer()
@@ -81,9 +81,9 @@ class KnobView: UIView {
         // Color the path that the handle will follow, in this case it will be a red line.
         
         pathLayer = CAShapeLayer()
-        pathLayer.lineWidth = 3.0
+        pathLayer.lineWidth = 6.0
         pathLayer.fillColor = nil
-        pathLayer.strokeColor = UIColor.redColor().CGColor
+        pathLayer.strokeColor = UIColor(red:0.99, green:0.99, blue:0.99, alpha:1).CGColor
         pathLayer.lineCap = kCALineCapButt
         pathLayer.lineJoin = kCALineJoinRound
         layer.addSublayer(pathLayer)
@@ -93,8 +93,8 @@ class KnobView: UIView {
         // Color the handle and add the handle layer to the handle view.
         
         handleLayer = CAShapeLayer()
-        handleLayer.fillColor = UIColor.greenColor().CGColor
-        handleLayer.frame = CGRectMake(0.0, 0.0, 20.0, 20.0)
+        handleLayer.fillColor = UIColor(red:0.89, green:0.41, blue:0.42, alpha:1).CGColor
+        handleLayer.frame = CGRectMake(0.0, 0.0, 30.0, 30.0)
         handleLayer.path = UIBezierPath(ovalInRect: handleLayer.frame).CGPath
         handleView = UIView(frame: handleLayer.frame)
         handleView.layer.addSublayer(handleLayer)
