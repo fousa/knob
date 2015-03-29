@@ -20,8 +20,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjB-W1-sg7" customClass="KnobView" customModule="Knob" customModuleProvider="target">
                                 <rect key="frame" x="225" y="225" width="150" height="150"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seO-Sw-0BU">
-                                        <rect key="frame" x="70" y="64" width="11" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seO-Sw-0BU">
+                                        <rect key="frame" x="70" y="63" width="11" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
