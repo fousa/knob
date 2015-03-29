@@ -146,6 +146,8 @@ class KnobView: UIView {
         
         layoutPathLayer()
         layoutHandleView()
+        
+        delegate?.knobView(self, didChangeValue: calculateValue())
     }
     
     // MARK: - Gestures
